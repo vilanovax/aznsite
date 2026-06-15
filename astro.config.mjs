@@ -1,8 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import tailwindcss from '@tailwindcss/vite';
 
+// Tailwind از طریق PostCSS اجرا می‌شود (postcss.config.mjs) — سازگار با rolldown-vite در Astro 6
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.azn.ir',
@@ -24,7 +24,4 @@ export default defineConfig({
       },
     }),
   ],
-  vite: {
-    plugins: [tailwindcss()],
-  },
 });

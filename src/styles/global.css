@@ -1,5 +1,6 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/vazirmatn';
+/* فونت وزیرمتن در BaseLayout با import جاوااسکریپتی بارگذاری می‌شود
+   تا Vite فایل‌های woff2 را درست در خروجی emit کند (سازگار با Astro 6 + PostCSS). */
 
 /* ===== Design tokens ===== */
 @theme {
