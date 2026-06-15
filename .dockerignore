@@ -1,0 +1,28 @@
+# وابستگی‌ها و خروجی (داخل کانتینر دوباره ساخته می‌شوند)
+node_modules
+dist
+.astro
+
+# ⚠️ هرگز وارد ایمیج نشوند — سکرت‌ها
+.env
+.env.*
+*.token
+.secrets
+
+# گیت و ابزار
+.git
+.gitignore
+.github
+.vscode
+.idea
+
+# سیستم/لاگ
+.DS_Store
+*.log
+npm-debug.log*
+
+# مستندات/داکر (برای build لازم نیستند)
+Dockerfile
+.dockerignore
+docker-compose.yml
+README.md
