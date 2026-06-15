@@ -8,8 +8,18 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  ogType?: 'website' | 'article';
+  article?: { publishedTime?: string; author?: string; section?: string };
+  schemas?: Record<string, unknown>[];
 }
-const { title, description = site.description, image = '/og.svg' } = Astro.props;
+const {
+  title,
+  description = site.description,
+  image = '/og.svg',
+  ogType = 'website',
+  article,
+  schemas = [],
+} = Astro.props;
 const fullTitle = title ? `${title} | ${site.shortName}` : `${site.name} | ${site.tagline}`;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const ogImage = new URL(image, site.url).href;
@@ -40,6 +50,10 @@ const jsonLd = {
   })),
   knowsAbout: site.keywords,
 };
+// همه‌ی داده‌ساختاریافته‌ها: schema اصلی موسسه + schemaهای اختصاصی صفحه (مقاله، مسیر راهنما و…)
+const allSchemas = [jsonLd, ...schemas];
+// خنثی‌سازی هرگونه احتمال فرار از تگ اسکریپت (دفاع لایه‌ای)
+const escapeLd = (obj: unknown) => JSON.stringify(obj).replace(/</g, '\\u003c');
 ---
 
 <!doctype html>
@@ -59,13 +73,24 @@ const jsonLd = {
     <meta name="theme-color" content="#1c3461" />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="fa_IR" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    {
+      ogType === 'article' && article && (
+        <>
+          {article.publishedTime && (
+            <meta property="article:published_time" content={article.publishedTime} />
+          )}
+          {article.author && <meta property="article:author" content={article.author} />}
+          {article.section && <meta property="article:section" content={article.section} />}
+        </>
+      )
+    }
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -74,9 +99,19 @@ const jsonLd = {
     <meta name="twitter:image" content={ogImage} />
 
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${site.shortName} | مقالات`}
+      href="/rss.xml"
+    />
 
     <!-- داده‌ساختاریافته -->
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+    {
+      allSchemas.map((s) => (
+        <script type="application/ld+json" set:html={escapeLd(s)} is:inline />
+      ))
+    }
   </head>
   <body class="min-h-screen flex flex-col antialiased">
     <a

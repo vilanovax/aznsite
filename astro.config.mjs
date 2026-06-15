@@ -6,7 +6,24 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.azn.ir',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      changefreq: 'weekly',
+      priority: 0.7,
+      serialize(item) {
+        if (item.url === 'https://www.azn.ir/') {
+          item.priority = 1.0;
+          item.changefreq = 'weekly';
+        } else if (item.url.includes('/blog/')) {
+          item.priority = 0.6;
+        } else {
+          item.priority = 0.8;
+          item.changefreq = 'monthly';
+        }
+        return item;
+      },
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

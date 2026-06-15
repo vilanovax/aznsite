@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
 import CtaSection from '../../components/CtaSection.astro';
+import { site } from '../../data/site.js';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -21,14 +22,56 @@ const dateStr = new Intl.DateTimeFormat('fa-IR', {
   day: 'numeric',
 }).format(post.data.pubDate);
 
+const pubISO = post.data.pubDate.toISOString();
+const postUrl = new URL(`/blog/${post.id}/`, site.url).href;
+
 // related posts
 const all = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 const related = all.filter((p) => p.id !== post.id).slice(0, 2);
+
+// داده‌ساختاریافته مقاله + مسیر راهنما (Breadcrumb)
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  inLanguage: 'fa-IR',
+  datePublished: pubISO,
+  dateModified: pubISO,
+  articleSection: post.data.category,
+  image: new URL('/og.svg', site.url).href,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+  author: { '@type': 'Person', name: post.data.author },
+  publisher: {
+    '@type': 'Organization',
+    name: site.name,
+    logo: { '@type': 'ImageObject', url: new URL('/favicon.svg', site.url).href },
+  },
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'خانه', item: site.url + '/' },
+    { '@type': 'ListItem', position: 2, name: 'مقالات', item: new URL('/blog/', site.url).href },
+    { '@type': 'ListItem', position: 3, name: post.data.title, item: postUrl },
+  ],
+};
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  ogType="article"
+  article={{
+    publishedTime: pubISO,
+    author: post.data.author,
+    section: post.data.category,
+  }}
+  schemas={[articleSchema, breadcrumbSchema]}
+>
   <!-- Article hero -->
   <section class="relative overflow-hidden bg-ink-900 pt-16 pb-20 px-5 lg:px-8">
     <div class="absolute -top-32 start-1/2 -translate-x-1/2 w-[40rem] h-[40rem] rounded-full bg-brand-600/20 blur-3xl"></div>
