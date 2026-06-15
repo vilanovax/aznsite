@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import TeamCard from '../components/TeamCard.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { team } from '../data/site.js';
+
+// دو نفر اول (رییس هیئت مدیره و مدیرعامل) به‌صورت برجسته، بقیه در ردیف اعضا
+const leads = team.slice(0, 2);
+const members = team.slice(2);
+---
+
+<BaseLayout
+  title="مدیران و هیئت مدیره"
+  description="مدیران و هیئت مدیره موسسه حسابرسی آزموده کاران؛ تیمی از متخصصان حسابرسی، مالیات و مشاوره مدیریت."
+>
+  <PageHero
+    eyebrow="تیم ما"
+    title="مدیران و هیئت مدیره"
+    subtitle="تیمی از متخصصان حسابرسی و مالی که با تعهد حرفه‌ای، کیفیت خدمات ما را تضمین می‌کنند."
+  />
+
+  <section class="px-5 lg:px-8 py-20">
+    <div class="mx-auto max-w-7xl">
+      <!-- رییس هیئت مدیره و مدیرعامل -->
+      <div class="grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
+        {
+          leads.map((m, i) => (
+            <TeamCard
+              name={m.name}
+              role={m.role}
+              bio={m.bio}
+              initials={m.initials}
+              delay={i * 80}
+            />
+          ))
+        }
+      </div>
+
+      <!-- سایر اعضای هیئت مدیره -->
+      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          members.map((m, i) => (
+            <TeamCard
+              name={m.name}
+              role={m.role}
+              bio={m.bio}
+              initials={m.initials}
+              delay={(i % 3) * 80}
+            />
+          ))
+        }
+      </div>
+
+      <div class="mt-16 reveal rounded-3xl bg-ink-50 p-8 sm:p-12 text-center max-w-3xl mx-auto">
+        <h2 class="text-2xl font-bold text-ink-900">به تیم ما بپیوندید</h2>
+        <p class="mt-3 text-ink-500 leading-8">
+          ما همواره به دنبال استعدادهای حرفه‌ای در حوزه حسابداری و حسابرسی هستیم. اگر به دنبال محیطی پویا برای رشد هستید، با ما در تماس باشید.
+        </p>
+        <a
+          href="/contact/"
+          class="mt-6 inline-flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-brand-700"
+        >
+          ارسال رزومه
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>

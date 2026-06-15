@@ -1,0 +1,147 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/vazirmatn';
+
+/* ===== Design tokens ===== */
+@theme {
+  --font-sans: 'Vazirmatn Variable', ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand palette — آبی و سرمه‌ای (blue & navy), professional */
+  --color-brand-50: #eef4fb;
+  --color-brand-100: #d8e6f6;
+  --color-brand-200: #b6cdec;
+  --color-brand-300: #88abdd;
+  --color-brand-400: #5685cb;
+  --color-brand-500: #3464b4;
+  --color-brand-600: #254e98;
+  --color-brand-700: #1f3f7a;
+  --color-brand-800: #1c3461;
+  --color-brand-900: #16294a;
+
+  --color-ink-50: #f6f7f8;
+  --color-ink-100: #eceef1;
+  --color-ink-200: #d6dae0;
+  --color-ink-300: #b1b9c4;
+  --color-ink-400: #818c9c;
+  --color-ink-500: #5f6b7c;
+  --color-ink-600: #4a5462;
+  --color-ink-700: #33415c;
+  --color-ink-800: #1f3050;
+  --color-ink-900: #15243f;
+
+  --color-gold-400: #d4ad6a;
+  --color-gold-500: #c39a4f;
+}
+
+/* ===== Base ===== */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: 'ss01';
+  background-color: #ffffff;
+  color: var(--color-ink-800);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Persian digits feel native; keep numerals tabular where needed */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Visible keyboard focus for accessibility (does not affect mouse clicks) */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* Subtle entrance animation utility */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Reveal-on-scroll: elements start hidden, JS adds .is-visible */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .animate-fade-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Prose tuning for blog content (RTL-friendly) */
+.prose-fa {
+  line-height: 2.1;
+  color: var(--color-ink-700);
+}
+.prose-fa h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-top: 2.2rem;
+  margin-bottom: 0.9rem;
+  color: var(--color-ink-900);
+}
+.prose-fa h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 1.6rem;
+  margin-bottom: 0.6rem;
+  color: var(--color-ink-900);
+}
+.prose-fa p {
+  margin-bottom: 1.1rem;
+}
+.prose-fa ul {
+  margin-bottom: 1.1rem;
+  padding-inline-start: 1.4rem;
+  list-style: disc;
+}
+.prose-fa li {
+  margin-bottom: 0.4rem;
+}
+.prose-fa a {
+  color: var(--color-brand-600);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-fa blockquote {
+  border-inline-start: 3px solid var(--color-brand-400);
+  padding-inline-start: 1rem;
+  color: var(--color-ink-500);
+  margin: 1.4rem 0;
+}

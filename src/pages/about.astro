@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CtaSection from '../components/CtaSection.astro';
+import Icon from '../components/Icon.astro';
+import { site, values, stats } from '../data/site.js';
+
+const milestones = [
+  { year: '۱۳۷۸', title: 'تأسیس موسسه', text: 'آغاز فعالیت با تمرکز بر حسابرسی شرکت‌های تولیدی.' },
+  { year: '۱۳۸۵', title: 'گسترش خدمات', text: 'افزودن خدمات مالیاتی و مشاوره مدیریت به سبد خدمات.' },
+  { year: '۱۳۹۴', title: 'عضویت‌های حرفه‌ای', text: 'تثبیت جایگاه به‌عنوان موسسه معتمد جامعه حسابداران رسمی.' },
+  { year: '۱۴۰۳', title: 'تحول دیجیتال', text: 'به‌کارگیری ابزارهای نوین تحلیل داده در فرایند حسابرسی.' },
+];
+---
+
+<BaseLayout title="درباره ما" description={`درباره ${site.name} — تاریخچه، ماموریت و ارزش‌های ما.`}>
+  <PageHero
+    eyebrow="درباره ما"
+    title="بیش از دو دهه در کنار کسب‌وکارها"
+    subtitle="ما با تکیه بر دانش، تجربه و پایبندی به اصول حرفه‌ای، شریک مطمئن سازمان‌ها در مسیر شفافیت و رشد بوده‌ایم."
+  />
+
+  <!-- Intro + mission -->
+  <section class="px-5 lg:px-8 py-20">
+    <div class="mx-auto max-w-7xl grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="reveal">
+        <span class="text-sm font-semibold text-brand-600">داستان ما</span>
+        <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-ink-900 leading-tight">
+          اعتماد، حاصل سال‌ها کار حرفه‌ای است
+        </h2>
+        <div class="mt-6 space-y-4 text-ink-600 leading-8">
+          <p>
+            {site.name} از سال ۱۳۷۸ فعالیت خود را آغاز کرد و امروز به‌عنوان یکی از موسسات معتبر حسابرسی، خدمات گسترده‌ای را به شرکت‌ها و سازمان‌های گوناگون ارائه می‌دهد.
+          </p>
+          <p>
+            ماموریت ما کمک به مشتریان برای دستیابی به شفافیت مالی، رعایت الزامات قانونی و تصمیم‌گیری بهتر است. ما باور داریم که حسابرسی باکیفیت، فراتر از یک الزام قانونی، ابزاری برای ساختن اعتماد و ایجاد ارزش پایدار است.
+          </p>
+        </div>
+        <div class="mt-8 grid grid-cols-2 gap-4">
+          {
+            stats.slice(0, 2).map((s) => (
+              <div class="rounded-xl border border-ink-100 p-5">
+                <div class="text-3xl font-bold text-brand-600 tabular">{s.value}</div>
+                <div class="mt-1 text-sm text-ink-500">{s.label}</div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- mission/vision cards -->
+      <div class="reveal space-y-5" data-delay="120ms">
+        <div class="rounded-2xl bg-brand-600 p-8 text-white">
+          <Icon name="compliance" class="w-9 h-9 text-brand-200" />
+          <h3 class="mt-4 text-xl font-bold">ماموریت ما</h3>
+          <p class="mt-3 leading-8 text-brand-50">
+            ارائه خدمات حرفه‌ای حسابرسی و مالی با بالاترین استانداردهای کیفیت، استقلال و اخلاق حرفه‌ای.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-ink-100 bg-white p-8">
+          <Icon name="advisory" class="w-9 h-9 text-brand-600" />
+          <h3 class="mt-4 text-xl font-bold text-ink-900">چشم‌انداز ما</h3>
+          <p class="mt-3 leading-8 text-ink-600">
+            تبدیل‌شدن به نخستین انتخاب سازمان‌ها برای خدمات حسابرسی و مشاوره مالی مبتنی بر اعتماد و نوآوری.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="bg-ink-50/60 px-5 lg:px-8 py-20">
+    <div class="mx-auto max-w-7xl">
+      <SectionHeading eyebrow="ارزش‌های ما" title="اصولی که به آن پایبندیم" />
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          values.map((v, i) => (
+            <div class="reveal rounded-2xl bg-white p-7 border border-ink-100" data-delay={`${i * 80}ms`}>
+              <div class="grid place-items-center w-11 h-11 rounded-lg bg-brand-50 text-brand-600">
+                <Icon name={v.icon} class="w-6 h-6" />
+              </div>
+              <h3 class="mt-4 font-bold text-ink-900">{v.title}</h3>
+              <p class="mt-2 text-sm leading-7 text-ink-500">{v.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="px-5 lg:px-8 py-20">
+    <div class="mx-auto max-w-3xl">
+      <SectionHeading eyebrow="مسیر ما" title="نگاهی به تاریخچه" />
+      <div class="mt-14 relative">
+        <div class="absolute top-0 bottom-0 start-[7px] w-px bg-ink-200"></div>
+        <div class="space-y-10">
+          {
+            milestones.map((m, i) => (
+              <div class="reveal relative ps-8" data-delay={`${i * 80}ms`}>
+                <div class="absolute start-0 top-1.5 w-3.5 h-3.5 rounded-full bg-brand-500 ring-4 ring-brand-50"></div>
+                <div class="text-sm font-bold text-brand-600 tabular">{m.year}</div>
+                <h3 class="mt-1 text-lg font-bold text-ink-900">{m.title}</h3>
+                <p class="mt-1.5 text-ink-500 leading-7">{m.text}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>

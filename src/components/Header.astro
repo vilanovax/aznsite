@@ -1,0 +1,116 @@
+---
+import { nav } from '../data/site.js';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+
+const current = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? current === '/' : current.startsWith(href);
+---
+
+<header
+  id="site-header"
+  class="sticky top-0 z-50 transition-all duration-300 border-b border-transparent"
+>
+  <nav class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="flex items-center justify-between h-18 py-3">
+      <Logo />
+
+      <!-- Desktop nav -->
+      <ul class="hidden xl:flex items-center gap-1">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={[
+                  'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
+                  isActive(item.href)
+                    ? 'text-brand-700 bg-brand-50'
+                    : 'text-ink-600 hover:text-brand-700 hover:bg-ink-50',
+                ]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="hidden xl:block">
+        <a
+          href="/contact/"
+          class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow-md"
+        >
+          درخواست مشاوره
+        </a>
+      </div>
+
+      <!-- Mobile toggle -->
+      <button
+        id="menu-toggle"
+        class="xl:hidden grid place-items-center w-11 h-11 rounded-lg text-ink-700 hover:bg-ink-50 transition-colors"
+        aria-label="باز کردن منو"
+        aria-expanded="false"
+      >
+        <Icon name="menu" class="w-6 h-6" />
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="xl:hidden hidden border-t border-ink-100 bg-white/95 backdrop-blur"
+  >
+    <ul class="mx-auto max-w-7xl px-5 py-3 flex flex-col gap-1">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                'block px-4 py-3 rounded-lg text-base font-medium transition-colors',
+                isActive(item.href)
+                  ? 'text-brand-700 bg-brand-50'
+                  : 'text-ink-700 hover:bg-ink-50',
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+      <li class="pt-2">
+        <a
+          href="/contact/"
+          class="block text-center rounded-lg bg-brand-600 px-5 py-3 text-base font-semibold text-white"
+        >
+          درخواست مشاوره
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const header = document.getElementById('site-header');
+
+  toggle?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', String(open === false));
+  });
+
+  // Header background on scroll
+  const onScroll = () => {
+    if (window.scrollY > 12) {
+      header?.classList.add('bg-white/85', 'backdrop-blur', 'border-ink-100', 'shadow-sm');
+    } else {
+      header?.classList.remove('bg-white/85', 'backdrop-blur', 'border-ink-100', 'shadow-sm');
+    }
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

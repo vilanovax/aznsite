@@ -1,0 +1,27 @@
+---
+import { credentials } from '../data/site.js';
+import Icon from './Icon.astro';
+---
+
+<section class="border-y border-ink-100 bg-white">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8 py-10 lg:py-12">
+    <p class="reveal text-center text-sm font-medium tracking-wide text-ink-400 mb-9">
+      مورد اعتماد سازمان‌ها و نهادهای حرفه‌ای
+    </p>
+    <div class="reveal flex flex-wrap items-center justify-center gap-x-10 gap-y-7" data-delay="80ms">
+      {
+        credentials.map((c) => (
+          <div class="flex items-center gap-3 grayscale opacity-80 transition-all duration-300 hover:grayscale-0 hover:opacity-100">
+            <span class="grid place-items-center w-11 h-11 rounded-xl border border-ink-200 bg-ink-50 text-brand-600 shrink-0">
+              <Icon name="award" class="w-5 h-5" />
+            </span>
+            <div class="text-start leading-tight">
+              <div class="text-[11px] text-ink-400">{c.sub}</div>
+              <div class="text-sm font-semibold text-ink-700">{c.title}</div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

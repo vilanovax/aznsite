@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.astro/
+
+# secrets — هرگز کامیت نشوند
+.env
+.env.*
+.env.deploy
+*.token
+.secrets/
+
+# os / editor
+.DS_Store
+*.log
+.vscode/
+.idea/

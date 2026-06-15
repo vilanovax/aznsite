@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1c3461"/>
+      <stop offset="1" stop-color="#15243f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="980" cy="120" r="260" fill="#254e98" opacity="0.25"/>
+  <circle cx="180" cy="560" r="220" fill="#3464b4" opacity="0.18"/>
+  <g font-family="Tahoma, sans-serif" text-anchor="middle">
+    <rect x="536" y="150" width="128" height="128" rx="28" fill="#254e98"/>
+    <text x="600" y="238" font-size="78" font-weight="bold" fill="#ffffff">آ</text>
+    <text x="600" y="380" font-size="64" font-weight="bold" fill="#ffffff" direction="rtl">موسسه حسابرسی آزموده کاران</text>
+    <text x="600" y="450" font-size="34" fill="#b6cdec" direction="rtl">حسابرسی، خدمات مالی و مشاوره مدیریت</text>
+    <text x="600" y="540" font-size="28" fill="#88abdd" direction="rtl">www.azn.ir</text>
+  </g>
+</svg>

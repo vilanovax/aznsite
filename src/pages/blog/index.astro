@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import BlogCard from '../../components/BlogCard.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout title="مقالات" description="مقالات و تحلیل‌های کارشناسان آزموده کاران در حوزه حسابرسی، مالیات و مدیریت مالی.">
+  <PageHero
+    eyebrow="دانش و مقالات"
+    title="مقالات و یادداشت‌ها"
+    subtitle="جدیدترین تحلیل‌ها و راهنماهای کاربردی در حوزه حسابرسی، مالیات و مدیریت مالی."
+  />
+
+  <section class="px-5 lg:px-8 py-20">
+    <div class="mx-auto max-w-7xl">
+      {
+        posts.length > 0 ? (
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((p, i) => (
+              <BlogCard
+                href={`/blog/${p.id}/`}
+                title={p.data.title}
+                description={p.data.description}
+                category={p.data.category}
+                pubDate={p.data.pubDate}
+                readingTime={p.data.readingTime}
+                delay={(i % 3) * 90}
+              />
+            ))}
+          </div>
+        ) : (
+          <p class="text-center text-ink-500">هنوز مقاله‌ای منتشر نشده است.</p>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

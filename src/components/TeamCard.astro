@@ -1,0 +1,24 @@
+---
+interface Props {
+  name: string;
+  role: string;
+  bio: string;
+  initials: string;
+  delay?: number;
+}
+const { name, role, bio, initials, delay = 0 } = Astro.props;
+---
+
+<article
+  class="reveal group rounded-2xl border border-ink-100 bg-white p-7 text-center transition-all duration-300 hover:border-brand-200 hover:shadow-xl hover:shadow-brand-900/5"
+  data-delay={`${delay}ms`}
+>
+  <div
+    class="mx-auto grid place-items-center w-24 h-24 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-white text-2xl font-bold shadow-lg shadow-brand-900/15 transition-transform group-hover:scale-105"
+  >
+    {initials}
+  </div>
+  <h3 class="mt-5 text-lg font-bold text-ink-900">{name}</h3>
+  <p class="mt-1 text-sm font-medium text-brand-600">{role}</p>
+  <p class="mt-4 text-sm leading-7 text-ink-500">{bio}</p>
+</article>
