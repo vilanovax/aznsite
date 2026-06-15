@@ -4,21 +4,23 @@ import PageHero from '../components/PageHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import CtaSection from '../components/CtaSection.astro';
 import Icon from '../components/Icon.astro';
-import { site, values, stats } from '../data/site.js';
+import { site, values, affiliations } from '../data/site.js';
 
-const milestones = [
-  { year: '۱۳۷۸', title: 'تأسیس موسسه', text: 'آغاز فعالیت با تمرکز بر حسابرسی شرکت‌های تولیدی.' },
-  { year: '۱۳۸۵', title: 'گسترش خدمات', text: 'افزودن خدمات مالیاتی و مشاوره مدیریت به سبد خدمات.' },
-  { year: '۱۳۹۴', title: 'عضویت‌های حرفه‌ای', text: 'تثبیت جایگاه به‌عنوان موسسه معتمد جامعه حسابداران رسمی.' },
-  { year: '۱۴۰۳', title: 'تحول دیجیتال', text: 'به‌کارگیری ابزارهای نوین تحلیل داده در فرایند حسابرسی.' },
+// واقعیت‌های تأییدشده به‌جای آمار نمونه
+const facts = [
+  { value: 'رتبه الف', label: 'جامعه حسابداران رسمی ایران' },
+  { value: '۱۳۸۵', label: 'آغاز مشارکت بین‌المللی' },
 ];
 ---
 
-<BaseLayout title="درباره ما" description={`درباره ${site.name} — تاریخچه، ماموریت و ارزش‌های ما.`}>
+<BaseLayout
+  title="درباره ما"
+  description="درباره موسسه حسابرسی آزموده کاران؛ دارای رتبه الف جامعه حسابداران رسمی ایران، عضو انجمن‌های حرفه‌ای و دارای مشارکت بین‌المللی."
+>
   <PageHero
     eyebrow="درباره ما"
-    title="بیش از دو دهه در کنار کسب‌وکارها"
-    subtitle="ما با تکیه بر دانش، تجربه و پایبندی به اصول حرفه‌ای، شریک مطمئن سازمان‌ها در مسیر شفافیت و رشد بوده‌ایم."
+    title="موسسه حسابرسی آزموده کاران"
+    subtitle="با شعار «ما دقیق هستیم»؛ شریک مطمئن سازمان‌ها در مسیر شفافیت مالی و رشد پایدار."
   />
 
   <!-- Intro + mission -->
@@ -27,22 +29,22 @@ const milestones = [
       <div class="reveal">
         <span class="text-sm font-semibold text-brand-600">داستان ما</span>
         <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-ink-900 leading-tight">
-          اعتماد، حاصل سال‌ها کار حرفه‌ای است
+          دقت و استقلال، پایه‌ی اعتماد
         </h2>
         <div class="mt-6 space-y-4 text-ink-600 leading-8">
           <p>
-            {site.name} از سال ۱۳۷۸ فعالیت خود را آغاز کرد و امروز به‌عنوان یکی از موسسات معتبر حسابرسی، خدمات گسترده‌ای را به شرکت‌ها و سازمان‌های گوناگون ارائه می‌دهد.
+            موسسه حسابرسی آزموده کاران افتخار ارائه خدمات حسابرسی و مشاوره مدیریت باکیفیت بالا را دارد. اعضای موسسه علاوه بر عضویت در جامعه حسابداران رسمی ایران، انجمن حسابداران خبره، انجمن حسابداری ایران و انجمن حسابرسان داخلی ایران، از اعتماد و همکاری سازمان‌های معتبری چون سازمان بورس اوراق بهادار، سازمان ملل متحد، بانک جهانی، بانک توسعه اسلامی و اتحادیه پارلمان‌های کشورهای اسلامی بهره‌مند هستند.
           </p>
           <p>
-            ماموریت ما کمک به مشتریان برای دستیابی به شفافیت مالی، رعایت الزامات قانونی و تصمیم‌گیری بهتر است. ما باور داریم که حسابرسی باکیفیت، فراتر از یک الزام قانونی، ابزاری برای ساختن اعتماد و ایجاد ارزش پایدار است.
+            موسسه از سال ۱۳۸۵ با مشارکت بین‌المللی با موسسه Horwath MAK (از موسسات بزرگ حسابرسی در امارات) فعالیت بین‌المللی خود را گسترش داده است. باور ما این است که حسابرسی دقیق و مستقل، فراتر از یک الزام قانونی، ابزاری برای ساختن اعتماد و خلق ارزش پایدار است.
           </p>
         </div>
         <div class="mt-8 grid grid-cols-2 gap-4">
           {
-            stats.slice(0, 2).map((s) => (
+            facts.map((f) => (
               <div class="rounded-xl border border-ink-100 p-5">
-                <div class="text-3xl font-bold text-brand-600 tabular">{s.value}</div>
-                <div class="mt-1 text-sm text-ink-500">{s.label}</div>
+                <div class="text-2xl font-bold text-brand-600 tabular">{f.value}</div>
+                <div class="mt-1 text-sm text-ink-500 leading-6">{f.label}</div>
               </div>
             ))
           }
@@ -55,7 +57,7 @@ const milestones = [
           <Icon name="compliance" class="w-9 h-9 text-brand-200" />
           <h3 class="mt-4 text-xl font-bold">ماموریت ما</h3>
           <p class="mt-3 leading-8 text-brand-50">
-            ارائه خدمات حرفه‌ای حسابرسی و مالی با بالاترین استانداردهای کیفیت، استقلال و اخلاق حرفه‌ای.
+            ارائه خدمات حرفه‌ای حسابرسی و مالی با بالاترین استانداردهای دقت، استقلال و اخلاق حرفه‌ای — چون «ما دقیق هستیم».
           </p>
         </div>
         <div class="rounded-2xl border border-ink-100 bg-white p-8">
@@ -89,24 +91,28 @@ const milestones = [
     </div>
   </section>
 
-  <!-- Timeline -->
+  <!-- Affiliations (واقعی) -->
   <section class="px-5 lg:px-8 py-20">
-    <div class="mx-auto max-w-3xl">
-      <SectionHeading eyebrow="مسیر ما" title="نگاهی به تاریخچه" />
-      <div class="mt-14 relative">
-        <div class="absolute top-0 bottom-0 start-[7px] w-px bg-ink-200"></div>
-        <div class="space-y-10">
-          {
-            milestones.map((m, i) => (
-              <div class="reveal relative ps-8" data-delay={`${i * 80}ms`}>
-                <div class="absolute start-0 top-1.5 w-3.5 h-3.5 rounded-full bg-brand-500 ring-4 ring-brand-50"></div>
-                <div class="text-sm font-bold text-brand-600 tabular">{m.year}</div>
-                <h3 class="mt-1 text-lg font-bold text-ink-900">{m.title}</h3>
-                <p class="mt-1.5 text-ink-500 leading-7">{m.text}</p>
-              </div>
-            ))
-          }
-        </div>
+    <div class="mx-auto max-w-5xl">
+      <SectionHeading
+        eyebrow="اعتبار ما"
+        title="همکاری با سازمان‌های معتبر"
+        subtitle="اعضای موسسه از اعتماد و همکاری نهادهای ملی و بین‌المللی برخوردار بوده‌اند."
+      />
+      <div class="mt-12 flex flex-wrap justify-center gap-4">
+        {
+          affiliations.map((a, i) => (
+            <div
+              class="reveal flex items-center gap-3 rounded-xl border border-ink-100 bg-white px-5 py-4"
+              data-delay={`${i * 70}ms`}
+            >
+              <span class="grid place-items-center w-9 h-9 rounded-lg bg-brand-50 text-brand-600 shrink-0">
+                <Icon name="award" class="w-5 h-5" />
+              </span>
+              <span class="font-semibold text-ink-700">{a}</span>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>

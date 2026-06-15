@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { site, team } from '../data/site.js';
+import { site, team, services } from '../data/site.js';
 
 interface Props {
   title?: string;
@@ -28,20 +28,39 @@ const ogImage = new URL(image, site.url).href;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'AccountingService',
+  '@id': `${site.url}/#organization`,
   name: site.name,
   alternateName: site.nameEn,
+  slogan: site.slogan,
   url: site.url,
   logo: new URL('/favicon.svg', site.url).href,
   image: ogImage,
   email: site.email,
   telephone: site.phoneHref,
-  description: site.description,
-  areaServed: { '@type': 'Country', name: 'ایران' },
+  description: site.descriptionLong,
+  areaServed: [
+    { '@type': 'Country', name: 'ایران' },
+    { '@type': 'City', name: 'تهران' },
+  ],
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.streetAddress,
     addressLocality: site.addressLocality,
     addressCountry: 'IR',
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday'],
+    opens: '09:00',
+    closes: '17:00',
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'خدمات حسابرسی و مالی',
+    itemListElement: services.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.title, description: s.summary },
+    })),
   },
   employee: team.map((m) => ({
     '@type': 'Person',
@@ -70,7 +89,10 @@ const escapeLd = (obj: unknown) => JSON.stringify(obj).replace(/</g, '\\u003c');
     <meta name="robots" content="index, follow" />
     <meta name="author" content={site.name} />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="fa-IR" href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
     <meta name="theme-color" content="#1c3461" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
 
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />
@@ -80,6 +102,10 @@ const escapeLd = (obj: unknown) => JSON.stringify(obj).replace(/</g, '\\u003c');
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={site.name} />
     {
       ogType === 'article' && article && (
         <>

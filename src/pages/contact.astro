@@ -8,11 +8,15 @@ const contactItems = [
   { icon: 'pin', label: 'آدرس', value: site.address },
   { icon: 'phone', label: 'تلفن', value: site.phone, href: `tel:${site.phoneHref}`, ltr: true },
   { icon: 'mail', label: 'ایمیل', value: site.email, href: `mailto:${site.email}`, ltr: true },
+  { icon: 'mail', label: 'ایمیل دوم', value: site.emailSecondary, href: `mailto:${site.emailSecondary}`, ltr: true },
   { icon: 'clock', label: 'ساعات کاری', value: site.workingHours },
 ];
 ---
 
-<BaseLayout title="تماس با ما" description="راه‌های ارتباطی با موسسه حسابرسی آزموده کاران.">
+<BaseLayout
+  title="تماس با ما"
+  description="تماس با موسسه حسابرسی آزموده کاران در تهران، خیابان شریعتی، قلهک. تلفن ۰۲۱-۲۲۹۲۵۹۱۰ و ایمیل info@azn.ir برای درخواست مشاوره و خدمات حسابرسی."
+>
   <PageHero
     eyebrow="تماس با ما"
     title="با ما در ارتباط باشید"
