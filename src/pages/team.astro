@@ -4,10 +4,6 @@ import PageHero from '../components/PageHero.astro';
 import TeamCard from '../components/TeamCard.astro';
 import CtaSection from '../components/CtaSection.astro';
 import { team } from '../data/site.js';
-
-// دو نفر اول (رییس هیئت مدیره و مدیرعامل) به‌صورت برجسته، بقیه در ردیف اعضا
-const leads = team.slice(0, 2);
-const members = team.slice(2);
 ---
 
 <BaseLayout
@@ -21,33 +17,20 @@ const members = team.slice(2);
   />
 
   <section class="px-5 lg:px-8 py-20">
-    <div class="mx-auto max-w-7xl">
-      <!-- رییس هیئت مدیره و مدیرعامل -->
-      <div class="grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
+    <div class="mx-auto max-w-5xl">
+      <!-- چیدمان یکدست و وسط‌چین — آخرین ردیف همیشه مرتب می‌ماند -->
+      <div class="flex flex-wrap justify-center gap-6">
         {
-          leads.map((m, i) => (
-            <TeamCard
-              name={m.name}
-              role={m.role}
-              bio={m.bio}
-              initials={m.initials}
-              delay={i * 80}
-            />
-          ))
-        }
-      </div>
-
-      <!-- سایر اعضای هیئت مدیره -->
-      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          members.map((m, i) => (
-            <TeamCard
-              name={m.name}
-              role={m.role}
-              bio={m.bio}
-              initials={m.initials}
-              delay={(i % 3) * 80}
-            />
+          team.map((m, i) => (
+            <div class="w-full sm:w-[330px] h-full">
+              <TeamCard
+                name={m.name}
+                role={m.role}
+                bio={m.bio}
+                initials={m.initials}
+                delay={(i % 3) * 80}
+              />
+            </div>
           ))
         }
       </div>
